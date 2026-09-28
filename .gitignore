@@ -1,0 +1,4 @@
+node_modules/
+.agentmesh/
+*.creds
+agentmesh-credentials.json

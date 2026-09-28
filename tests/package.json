@@ -1,0 +1,14 @@
+{
+  "name": "converter-check",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The input-converter role's conformance check: runs a converter against a local mesh with a stand-in model gateway, so no model is called.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "bin": { "converter-check": "./converter-check.mjs" },
+  "scripts": { "check": "node converter-check.mjs" },
+  "dependencies": {
+    "agentmesh": "https://storage.googleapis.com/agentmesh-releases/agentmesh-0.53.1.tgz"
+  }
+}
