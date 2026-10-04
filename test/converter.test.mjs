@@ -109,7 +109,7 @@ test("chat that is not a help question gets the standard reply, with no model", 
   const r = await h.chat("Please turn my notes into something");
   assert.equal(r.error.code, "INPUT_NOT_UNDERSTOOD");
   assert.equal(r.error.details.reason, "offering_unclear");
-  assert.deepEqual(r.error.details.offerings, ["input.convert", "output.adapt"]);
+  assert.deepEqual(r.error.details.offerings, ["input.convert", "output.adapt", "input.map"]);
   assert.ok(r.text.length > 0 && r.text === r.error.message);
   assert.equal(asked.length, 0);
 });

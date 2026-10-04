@@ -34,6 +34,18 @@ converter to answer.
   Files are named, never sent.
 - `output.adapt`: `{ "adapt": "v1", "output": <text or JSON>, "output_kind": "application/json", "target": { "offering": ... } }`,
   for joining one agent's output to another agent's input. Same three answers.
+- `input.map` (1.1.0): `{ "map": "v1", "sources": [{ "id", "name", "from", "media_type", "size", "shape", "excerpt" }], "target": { "agent", "offering": ... } }`.
+  For material too large to pass through a model. The caller keeps each piece
+  as a file and describes it; the converter answers which declared input comes
+  from which piece and how the caller builds it (`value`, optionally at a JSON
+  `path`; `text`; `page`, a one-page site-read made from a text piece;
+  `address`, a web address the target can fetch the piece at; `file`), with a
+  confidence and a reason for each: `{ "result": "mapped", "map": { "<input>":
+  { "source", "as", "path", "title", "confidence", "why" } } }`, or `missing`,
+  or `not_a_request`. It copies no content. A way that does not fit the
+  input's kind or the piece, an unknown piece, a path into a piece that is not
+  JSON, a title that is not in the piece's own words, or a confidence under
+  0.7 is dropped.
 - `chat`: "What can you do?" and the other help questions get its declared
   facts, with no model. Any other plain message gets the standard
   `INPUT_NOT_UNDERSTOOD` reply, because it takes structured requests only.

@@ -157,12 +157,12 @@ export function gatewayCaller(mesh, keys, gatewayHandle, timeoutMs = GATEWAY_TIM
 async function fileDescriptor(mesh, handle) {
   const body = {
     format: "agent-descriptor-v1",
-    agent_version: "1.0.0",
+    agent_version: "1.1.0",
     subject: { id: mesh.id, handle },
     does: `${DOES} Source: ${SOURCE}.`,
     interaction: "service",
     role: "input-converter",
-    offerings: OFFERINGS.map((o) => ({ id: o.id, name: o.name, does: o.does, inputs: o.inputs, examples: o.examples, outputs: [{ name: "filled, missing or not_a_request", kind: "application/json", when: "per_task" }] })),
+    offerings: OFFERINGS.map((o) => ({ id: o.id, name: o.name, does: o.does, inputs: o.inputs, examples: o.examples, outputs: [{ name: o.id === "input.map" ? "mapped, missing or not_a_request" : "filled, missing or not_a_request", kind: "application/json", when: "per_task" }] })),
     systems: [{ name: "AgentMesh model gateway", access: "call", needs: "a cheap model reads the sender's words; the words go to it", leaves: true }],
     refusals: REFUSALS,
     records: [],
