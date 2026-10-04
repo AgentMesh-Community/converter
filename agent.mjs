@@ -157,7 +157,7 @@ export function gatewayCaller(mesh, keys, gatewayHandle, timeoutMs = GATEWAY_TIM
 async function fileDescriptor(mesh, handle) {
   const body = {
     format: "agent-descriptor-v1",
-    agent_version: "1.1.0",
+    agent_version: "1.2.0",
     subject: { id: mesh.id, handle },
     does: `${DOES} Source: ${SOURCE}.`,
     interaction: "service",

@@ -23,7 +23,7 @@ converter to answer.
 - It never hands back a value that is not in the sender's words, or a web
   address the sender did not write. A model proposes the fields; this program
   checks every one of them before answering, and drops what fails.
-- It never suggests or calls another agent. The only agent it talks to is the
+- It never calls another agent, and names one only from the conversion offerings a caller listed (input.map `conversions`, 1.2.0), for the caller to run. The only agent it talks to is the
   AgentMesh model gateway.
 - It treats the sender's words as somebody else's content, never as
   instructions.
@@ -46,6 +46,14 @@ converter to answer.
   input's kind or the piece, an unknown piece, a path into a piece that is not
   JSON, a title that is not in the piece's own words, or a confidence under
   0.7 is dropped.
+  1.2.0: the request may list `conversions`, offerings of other agents the
+  caller may run (`{ "id", "agent", "offering", "from": [kinds], "to":
+  [kinds], "platform" }`). An entry may then carry `"via": ["c1"]`: the piece
+  goes through those conversions first (a video through a transcriber) and
+  the way applies to what the last one gives. The chain is checked, not
+  trusted: known ids, at most three, none twice, each taking what the one
+  before gives, the last giving a kind the way can use. The converter still
+  calls nobody; the caller runs the steps.
 - `chat`: "What can you do?" and the other help questions get its declared
   facts, with no model. Any other plain message gets the standard
   `INPUT_NOT_UNDERSTOOD` reply, because it takes structured requests only.
