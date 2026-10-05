@@ -1,6 +1,6 @@
 {
   "name": "converter",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "description": "converter.platform@agentmesh.ai: turns a message an agent could not use into the input that agent declares, or says plainly what is missing.",
   "license": "Apache-2.0",

@@ -249,7 +249,7 @@ export const MAP_WAYS = {
   value: "the piece itself, or the part of a JSON piece at path, as it is",
   text: "the piece's words, for a text, document or identifier input",
   page: "a site-read of one page, {\"pages\":[{\"url\",\"title\",\"text\"}]}, made from a text piece, for a JSON input that takes a site-read",
-  address: "a web address the target can fetch the piece at, for a url input",
+  address: "a web address the caller gives the piece, where the target reads the piece's own content, for a url input: a step that reads pages from an address reads a pasted article or a document this way",
   file: "the piece passed on as a file, for an input that takes that file",
 };
 export const MAX_SOURCES = 8;
@@ -392,6 +392,7 @@ export function mapPromptFor({ sources, offering, agent, conversions = [] }) {
     "- \"as\" is one of the ways listed. A path (like pages.0.url) is only for a JSON piece and must exist in its shape.",
     "- For \"page\", give a short title copied from the piece's excerpt, or none.",
     "- Map an input only when a piece really is that input or holds it. Give each a confidence from 0 to 1 and one short sentence why.",
+    "- A url input is filled by the content it would be used to read, not only by an address: when a piece IS the content the step is meant to read (an article, a document, a page's words) and no piece holds a better address, map it with \"as\":\"address\" and the caller hands the step an address where that content is served. Choose the piece that is the material itself, not a note about running a process.",
     conversions.length
       ? "- When a piece must first be turned into another kind (a video or a recording into its transcript, a PDF into its words) and one of the conversions listed does that, add \"via\": the conversion ids in order, as few as possible, preferring ones marked platform. The way then applies to what the last conversion gives. Name no other agent or service."
       : "- Never suggest another agent or service.",
